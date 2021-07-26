@@ -14,7 +14,7 @@ urlpatterns = [
     path('category', views.category, name='category'),
     path('newhood', views.create_hood, name='newhood'),
     path('post', views.post, name='post'),
-    path('update_post/<int:pk>/', views.update_post, name='updatepost'),
+    path('update_post/<int:pk>/', views.update_post, name='update_post'),
 
     
 

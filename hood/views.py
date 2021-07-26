@@ -13,9 +13,11 @@ def logout(request):
     return redirect('login')
 
 def index(request):
-    posts = Post.objects.all()
+    hoods =Neighbourhood.objects.all()
+    business=Business.objects.all()
     context={
-        'posts':posts,
+        'hoods':hoods,
+        'business':business
     }
     return render(request,'index.html', context)
 
@@ -80,15 +82,15 @@ def new_post(request):
 def update_post(request, pk):
     post = Post.objects.get(pk=pk)
     if request.method == "post":
-        update_post_form = UpdatePostForm(request.POST,request.FILES,instance=post)
-        if update_post_form.is_valid():
-            update_post_form.save()
+        form = UpdatePostForm(request.POST,request.FILES,instance=post)
+        if form.is_valid():
+            form.save()
             return redirect('post')
     else:
-        update_post_form = UpdatePostForm(instance=post)
+        form = UpdatePostForm(instance=post)
             
     
-    return redirect(request,'update_post.html',{'update_post_form':update_post_form})
+    return render(request,'update_post.html',{'form':form})
 
 def get_post(request, pk):
 	post = Post.objects.get(pk=pk)
@@ -122,7 +124,7 @@ def category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('newhood')
             
     else:
         form = CategoryForm()
@@ -136,7 +138,15 @@ def create_hood(request):
             hood = form.save(commit=False)
             hood.admin = request.user.profile
             hood.save()
+            return redirect('index')
+
     else:
         form = NeighbourHoodForm()
     return render(request, 'neighbourhood.html', {'form': form})
+
+def hood(request):
+    hoods = Neighbourhood.objects.all()
+    
+    return render(request, 'index.html',{'hoods':hoods})
+
 

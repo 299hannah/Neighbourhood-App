@@ -1,7 +1,13 @@
+*{
+    font-size: 16px;
+}
+
 .navbar.bg-light {
+
     background-color: #f3e2b3 !important;
+
     
   }
-  .navbar.bg-light  .form-control {
+  .navbar.bg-light,  .form-control {
     border-radius: 4.25rem;
   }

@@ -9,7 +9,7 @@ from cloudinary.models import CloudinaryField
 class Category(models.Model):
     name=models.CharField(max_length=100, null=True)
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Neighbourhood(models.Model):
@@ -55,7 +55,7 @@ class Profile(models.Model):
 class Business (models.Model):
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    neighbourbood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    neighbourbood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, null=True)
     description = models.TextField()
     email =models.EmailField()
 
@@ -74,7 +74,7 @@ class Post(models.Model):
     content = models.CharField(max_length=255)
     image = CloudinaryField('image',blank=True)
     created = models.DateField(auto_now_add=True)
-    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     comments = models.CharField(max_length=255, blank=True )
     
@@ -83,7 +83,7 @@ class Post(models.Model):
 
 
     def __str__(self):
-        return self.post
+        return str(self.content)
 
   
     def get_absolute_url(self): 
