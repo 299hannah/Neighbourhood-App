@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+
+{% load bootstrap4 %} 
+{% block content%}
+
+
+{%if posts %}
+{%for post in posts%}
+{{post.content}}
+<img src="{{post.image.url}} "style="width:200px; height:200px;" alt="image">
+
+{{post.neighbourhood.name}}
+
+ <a href="{%url 'delete' post.id %}"><button class="btn bg-danger">delete</button></a>
+ <a href="{%url 'update_post' post.id %}"><button class="btn bg-info">update</button></a>
+
+{%endfor%}
+
+
+{%endif%}
+
+        
+{% endblock %}
