@@ -1,0 +1,14 @@
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class=" account-img rounded-circle" alt="100x100" style="width:300px; height:300px" 
+        data-holder-rendered="true" src="{{ user.profile.image.url }}">
+                <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+   
+    </div>
+{% endblock content %}
