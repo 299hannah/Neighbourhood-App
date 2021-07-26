@@ -4,7 +4,7 @@
 {% load static %}
 {% block content %}
 
-<form action="" style="color: aliceblue;"  method="POST">
+<form action=""  method="POST">
     {%csrf_token%}{%bootstrap_form form%}
     <input type="submit" value="submit">
 </form>

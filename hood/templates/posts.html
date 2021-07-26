@@ -12,7 +12,7 @@
 {{post.neighbourhood.name}}
 
  <a href="{%url 'delete' post.id %}"><button class="btn bg-danger">delete</button></a>
- <a href="{%url 'update_post' post.id %}"><button class="btn bg-info">update</button></a>
+ <a href="{%url 'update_post' post.pk %}"><button class="btn bg-info">update</button></a>
 
 {%endfor%}
 
