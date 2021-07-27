@@ -3,7 +3,7 @@ from django.http import request
 from django.http.response import HttpResponseRedirect
 
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from .models import Profile,Post
 # Create your views here.
@@ -27,8 +27,7 @@ def profile(request, username):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
-                                   request.FILES,
-                                   instance=request.user.profile)
+                                   request.FILES)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
@@ -37,9 +36,10 @@ def profile(request, username):
 
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        p_form = ProfileUpdateForm()
 
     context = {
+        'user':user,
         'u_form': u_form,
         'p_form': p_form
     }
@@ -136,7 +136,6 @@ def create_hood(request):
         form = NeighbourHoodForm(request.POST, request.FILES)
         if form.is_valid():
             hood = form.save(commit=False)
-            hood.admin = request.user.profile
             hood.save()
             return redirect('index')
 
@@ -148,5 +147,32 @@ def hood(request):
     hoods = Neighbourhood.objects.all()
     
     return render(request, 'index.html',{'hoods':hoods})
+
+def join_hood(request, id):
+    neighbourhood = get_object_or_404(Neighbourhood, id=id)
+    request.user.profile.neighbourhood = neighbourhood
+    request.user.profile.save()
+    return render(request, 'neighbourhood.html')
+
+def leave_hood(request, id):
+    hood = get_object_or_404(Neighbourhood, id=id)
+    request.user.profile.neighbourhood = None
+    request.user.profile.save()
+    return render(request, 'neighbourhood.html')
+
+def search_results(request):
+    if 'name' in request.GET and request.GET["name"]:
+        search_term = request.GET.get("name")
+        searched_names = Business.search_by_name(search_term)
+
+        message = f"{search_term}"
+        
+
+        return render (request, 'search.html',{"message":message,"names": searched_names})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
+
 
 

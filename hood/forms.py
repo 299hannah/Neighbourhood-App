@@ -18,6 +18,7 @@ class CategoryForm(forms.ModelForm):
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
 
+
     class Meta:
         model = User
         fields = ['username', 'email']
@@ -26,7 +27,8 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['image','website_url',
+        'phone_number','instagram_url','facebook_url','neighbourhood']
 
 class BusinessForm(forms.ModelForm):
     class Meta:

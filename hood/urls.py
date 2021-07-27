@@ -14,6 +14,11 @@ urlpatterns = [
     path('category', views.category, name='category'),
     path('newhood', views.create_hood, name='newhood'),
     path('post', views.post, name='post'),
+    path('search', views.search_results, name='search'),
+    # path('join_hood/<id>', views.join_hood, name='join-hood'),
+    # path('leave_hood/<id>', views.leave_hood, name='leave-hood'),
+    path('business/', views.new_business, name='new_business'),
+
     path('update_post/<int:pk>/', views.update_post, name='update_post'),
 
     

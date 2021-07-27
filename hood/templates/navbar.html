@@ -1,3 +1,7 @@
+
+{%load static%}
+{%load bootstrap4%}
+
 <!doctype html>
 <html lang="en">
 
@@ -7,42 +11,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css">
+  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
-  <title>Hello, world!</title>
+  <title>Neighbours</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-    Bootstrap
+  <style>
+    .navbar.bg-light {
+
+background-color: #f3e2b3 !important;
+
+
+}
+.navbar.bg-light,  
+.form-control {
+border-radius: 4.25rem;
+}
+  </style>
+  <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: rgb(43, 56, 52); ">
+    <a class="navbar-brand" href="{% url 'index' %}">
+    The Hood
   </a>
-    <form class="form-inline  ">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <div class="form-inline mt-2 mt-md-0 navbar-right">
+    <form action="{% url 'search' %}" class="navbar-form" role="task">
+        <div class="input-group">
+            <input type="test form-control mr-sm-2" class="form-control" placeholder="Search by  title" name="title">
+            <div class="input-group-btn mr-lg-2">
+                <button class="btn  btn-outline-info  my-9 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </div>
 
+        </div>
     </form>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    
+</div>
+  
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class=" navbar-collapse" id="navbarSupportedContent">
       <div class="mr-auto"></div>
+     
       <ul class="navbar-nav my-2 my-lg-0">
-<li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{%url 'profile' user.username %}">Profile </a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-display="static" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Profile
+           Posts
         </a>
-          <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
-            <h6 class="dropdown-header">Dropdown header</h6>
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-          </div>
+        <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{%url 'new_post'%}">Create Posts</a>
+  
+          <a class="dropdown-item" href="{%url 'post'%}">View Post</a>
+  
+          
+  
+        </div>
+         
+  
+        </li>
+     
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-display="static" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          About Hoods
+      </a>
+      <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="{%url 'index'%}">View Hoods</a>
+
+        <a class="dropdown-item" href="{%url 'newhood'%}">Create  a Hoods</a>
+
+        
+
+      </div>
+       
+
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-display="static" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Business
+      </a>
+      <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="{%url 'index'%}">View Business</a>
+        <a class="dropdown-item" href="{%url 'new_business'%}">Create Business</a>
+        
+
+      </div>
+       
+
+      </li>
+     
+
+   
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-display="static" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Authentication
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Sign up</a>
+          <a class="dropdown-item" href="#">Login</a>
+          <a class="dropdown-item" href="#">Logout</a>
+
+        </div>
+         
 
         </li>
-
+       
       </ul>
 
       </div>

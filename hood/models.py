@@ -18,20 +18,15 @@ class Neighbourhood(models.Model):
     location = models.CharField(max_length=255)
     occupants_count = models.IntegerField()
     created =models.DateField(auto_now_add=True)
-    category=models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-
+    image = CloudinaryField('image', null=True)
+  
     def __str__(self):
         return self.name
 
     class Meta:
         ordering = ['-created']
 
-    @classmethod
-    def search_by_title(cls,search_term):
-        name = cls.objects.filter(title__icontains=search_term).all()
-        return name
-
-
+  
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
@@ -43,7 +38,7 @@ class Profile(models.Model):
     twitter_url = models.CharField(max_length=255, null=True, blank=True)
     instagram_url = models.CharField(max_length=255, null=True, blank=True)
     facebook_url = models.CharField(max_length=255, null=True, blank=True)
-    neighbourbood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, null=True)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, null=True)
 
     
     def __str__(self):
@@ -55,12 +50,12 @@ class Profile(models.Model):
 class Business (models.Model):
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    neighbourbood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, null=True)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, null=True)
     description = models.TextField()
     email =models.EmailField()
 
     created = models.DateField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -68,7 +63,12 @@ class Business (models.Model):
     def get_absolute_url(self):
         return reverse('business_detail', kwargs={'pk': self.pk})
 
-    
+    @classmethod
+    def search_by_name(cls,search_term):
+            name = cls.objects.filter(name__icontains=search_term).all()
+            return name
+
+  
 
 class Post(models.Model):
     content = models.CharField(max_length=255)
