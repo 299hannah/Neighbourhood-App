@@ -70,16 +70,14 @@ class Business (models.Model):
     def __str__(self):
         return self.name
 
-    def save():
-        return 
 
     def get_absolute_url(self):
         return reverse('business_detail', kwargs={'pk': self.pk})
 
-    # @classmethod
-    # def search_by_name(cls,search_term):
-    #         name = cls.objects.filter(name__icontains=search_term).all()
-    #         return name
+    @classmethod
+    def search_by_name(cls,search_term):
+        name = cls.objects.filter(name__icontains=search_term).all()
+        return name
 
   
 
