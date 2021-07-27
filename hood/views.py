@@ -3,7 +3,7 @@ from django.http import request
 from django.http.response import HttpResponseRedirect
 
 from django.contrib import messages
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import Profile,Post
 # Create your views here.
@@ -22,29 +22,40 @@ def index(request):
     return render(request,'index.html', context)
 
 
-def profile(request, username):
-    user=User.objects.get(username=username)
+def update_profile(request):
+    profile=Profile.objects.get(user=request.user) 
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
-                                   request.FILES)
+                                   request.FILES,
+                                   instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('update',user.username)
+            return redirect('update')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm()
+        p_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {
-        'user':user,
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'profile':profile,
     }
+    
+  
+    return render(request, 'update_profile.html',context)
 
-    return render(request, 'profile.html', context)
+def profile(request):
+    profile=Profile.objects.get(user=request.user)
+    # print(user)
+    
+    ctx={
+        'profile':profile,
+    }
+    return render(request, 'profile.html', ctx)
 
 
 def new_business(request):
@@ -64,14 +75,14 @@ def new_business(request):
 
 def new_post(request):
     current_user = request.user
-    profile = request.user.email
+    # profile = request.user.email
  
     if request.method == 'POST':
         form = NewPostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = current_user
-            post.author_profile = profile
+            # post.author_profile = profile
             post.save()
         return redirect('post')
 
@@ -112,8 +123,13 @@ def post(request):
     
     return render(request, 'posts.html',{'posts':posts})
 
+def business(request):
+    businesses = Business.objects.all()
+    
+    return render(request, 'business.html',{'businesses':businesses})
 
-def update(request,username):
+
+def update(request):
 
 	return render(request, 'update.html')
 
@@ -148,31 +164,37 @@ def hood(request):
     
     return render(request, 'index.html',{'hoods':hoods})
 
-def join_hood(request, id):
-    neighbourhood = get_object_or_404(Neighbourhood, id=id)
-    request.user.profile.neighbourhood = neighbourhood
-    request.user.profile.save()
-    return render(request, 'neighbourhood.html')
 
-def leave_hood(request, id):
-    hood = get_object_or_404(Neighbourhood, id=id)
-    request.user.profile.neighbourhood = None
-    request.user.profile.save()
-    return render(request, 'neighbourhood.html')
 
-def search_results(request):
-    if 'name' in request.GET and request.GET["name"]:
-        search_term = request.GET.get("name")
-        searched_names = Business.search_by_name(search_term)
+def search_business(request):
+    """ search function  """
+    if request.method == "POST":
+        query_name = request.POST.get('name', None)
+        if query_name:
+            results = Business.objects.filter(name__contains=query_name)
+            return render(request, 'search.html', {"results":results})
+    return render(request, 'search.html')
 
-        message = f"{search_term}"
+# def search_results(request):
+#     if 'name' in request.GET and request.GET["name"]:
+#         search_term = request.GET.get("name")
+#         searched_businesses = Business.search_by_name(search_term)
+
+#         message = f"{search_term}"
         
 
-        return render (request, 'search.html',{"message":message,"names": searched_names})
+#         return render (request, 'search.html',{"message":message,"name": searched_businesses})
 
-    else:
-        message = "You haven't searched for any term"
-        return render(request, 'search.html',{"message":message})
+#     else:
+#         message = "You haven't searched for any term"
+#         return render(request, 'search.html',{"message":message})
+
+def detail(request):
+    details = Neighbourhood.objects.all()
+    
+    return render(request, 'index.html',{'details':details})
+
+
 
 
 

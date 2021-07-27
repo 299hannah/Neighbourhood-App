@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
 from cloudinary.models import CloudinaryField
 
 # Create your models here.
@@ -38,13 +41,20 @@ class Profile(models.Model):
     twitter_url = models.CharField(max_length=255, null=True, blank=True)
     instagram_url = models.CharField(max_length=255, null=True, blank=True)
     facebook_url = models.CharField(max_length=255, null=True, blank=True)
-    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, null=True)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, null=True,related_name="members")
 
     
     def __str__(self):
-        return self.user_name
+        return str(self.user)
 
-    
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save() 
 
 
 class Business (models.Model):
@@ -60,13 +70,16 @@ class Business (models.Model):
     def __str__(self):
         return self.name
 
+    def save():
+        return 
+
     def get_absolute_url(self):
         return reverse('business_detail', kwargs={'pk': self.pk})
 
-    @classmethod
-    def search_by_name(cls,search_term):
-            name = cls.objects.filter(name__icontains=search_term).all()
-            return name
+    # @classmethod
+    # def search_by_name(cls,search_term):
+    #         name = cls.objects.filter(name__icontains=search_term).all()
+    #         return name
 
   
 
