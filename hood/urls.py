@@ -11,6 +11,10 @@ urlpatterns = [
     path("new_post/", views.new_post, name='new_post'),
     path('update/', views.update, name='update'),
     path('update_profile/', views.update_profile, name='update_profile'),
+   
+    path('update_business/<int:pk>/', views.update_business, name='update_business'),
+    
+    path('delete_business/<int:pk>/', views.delete_business, name='delete_business'),
 
     path('delete/<int:pk>/', views.delete_post, name='delete'),
     path('category', views.category, name='category'),
@@ -19,10 +23,8 @@ urlpatterns = [
     path('business/', views.business, name='business'),
 
     path('detail', views.detail, name='detail'),
-    # path('<hood_id>/members', views.hood_members, name='members'),
-    path('search', views.search_business, name='search'),
-    # path('join_hood/<id>', views.join_hood, name='join-hood'),
-    # path('leave_hood/<id>', views.leave_hood, name='leave-hood'),
+    path('search', views.search_results, name='search'),
+  
     path('new_business/', views.new_business, name='new_business'),
 
     path('update_post/<int:pk>/', views.update_post, name='update_post'),
