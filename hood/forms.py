@@ -25,6 +25,8 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    image = forms.FileField()
+
     class Meta:
         model = Profile
         fields = ['image','website_url',
@@ -61,5 +63,14 @@ class UpdatePostForm(forms.ModelForm):
           'post': forms.Textarea(attrs={'rows':2, 'cols':10,}),
         }
 
+
+class UpdateBusinessForm(forms.ModelForm):
+   class Meta:
+        model = Business
+      
+        exclude = ['user', 'created', 'user_profile', 'image']
+        widgets = {
+        'location': forms.Textarea(attrs={'rows':1, 'cols':10,}),
+        }
 
 
