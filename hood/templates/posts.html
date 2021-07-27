@@ -2,22 +2,24 @@
 
 {% load bootstrap4 %} 
 {% block content%}
+<div class="container">
 
 
 {%if posts %}
 {%for post in posts%}
 {{post.content}}
 <img src="{{post.image.url}} "style="width:200px; height:200px;" alt="image">
+<div class="col-lg-3"></div>
 
 {{post.neighbourhood.name}}
 
  <a href="{%url 'delete' post.id %}"><button class="btn bg-danger">delete</button></a>
  <a href="{%url 'update_post' post.pk %}"><button class="btn bg-info">update</button></a>
-
+</div>
 {%endfor%}
 
 
 {%endif%}
 
-        
+</div>      
 {% endblock %}

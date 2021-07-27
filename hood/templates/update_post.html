@@ -1,10 +1,12 @@
+{% extends 'base.html' %}
+
 {% load bootstrap4 %} 
 
 {% block content%}
-
+<div class="container">
        <h2 class="display-5 text-center font-weight-bold">Update your neighbourhood </h2>
     
-    </div>      
+        
 <div class="container">
   <div class="row">
       <!-- Empty div -->
@@ -15,12 +17,13 @@
               {%csrf_token%}
 
               {% bootstrap_form form %}
-              <input type="submit" class="btn btn-success btn-lg font-weight-bold" value="SUBMIT">
+              <input type="submit" class="btn btn-outline-info btn-lg font-weight-bold" value="SUBMIT">
             </form>
       </div>
 
       <div class="col-lg-3"></div>
     
   </div>
+</div>
 </div>
 {% endblock %}

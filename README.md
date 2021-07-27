@@ -67,10 +67,10 @@ Start the server to run locally.
 ## API Endpoints
 This site has 2 endpoints; 
     
-- **Profiles:** [https://wwwrate.herokuapp.com/api/profiles/](https://Neighbourhood-App.herokuapp.com/api/profiles/)
+- **Profiles:** [](https://Neighbourhood-App.herokuapp.com/api/profiles/)
 
     - Query the profiles stored in the database.
-- **Projects:** [https://wwwrate.herokuapp.com/api/projects/](https://Neighbourhood-App.herokuapp.com/api/projects/)
+- **Projects:** [](https://Neighbourhood-App.herokuapp.com/api/projects/)
 
     -  Query data about the projects stored in the database.
 
