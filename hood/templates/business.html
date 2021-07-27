@@ -4,7 +4,6 @@
 {% block content%}
 <div class="container">
 
-
 {%if businesses %}
 <br>
 <h3>Businesses</h3>
@@ -17,9 +16,10 @@
           <h5 class="card-title"> Name :{{business.name}}</h5>
           <p class="card-text"> Description: {{business.description}}</p>
           <p class="card-text">Email: {{business.email}}</p>
-
           <p class="card-text text-muted">{{business.created | date}}</p>
-
+          <a href="{%url 'delete_business' business.id %}" ><button class="btn-outline-danger">delete</button></a>
+          <a href="{%url 'update_business' business.id %}" ><button class=" btn-outline-info">update</button></a>
+        
         </div>
       </div>
     </div>
