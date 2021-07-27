@@ -12,6 +12,7 @@ from .models import Profile,Post
 def logout(request):
     logout(request)
     return redirect('login')
+@login_required(login_url='/accounts/login/')
 
 def index(request):
     hoods =Neighbourhood.objects.all()
