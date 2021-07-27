@@ -67,7 +67,7 @@ Start the server to run locally.
 ## API Endpoints
 This site has 2 endpoints; 
     
-- **Profiles:** [](https://Neighbourhood-App.herokuapp.com/api/profiles/)
+- **Profiles:** [''](https://Neighbourhood-App.herokuapp.com/api/profiles/)
 
     - Query the profiles stored in the database.
 - **Projects:** [](https://Neighbourhood-App.herokuapp.com/api/projects/)
@@ -86,6 +86,6 @@ No known bugs.
 ## Support and contact details
 If you have any suggestions, you can reach me via [email](hannahwambui022@gmail.com).
 ### License
- [(https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+(LICENSE)
 
 Copyright &copy; 2021 **[299hannah](www.github.com/299hannah)**
